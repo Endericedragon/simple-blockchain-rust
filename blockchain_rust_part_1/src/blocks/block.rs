@@ -1,7 +1,7 @@
 use chrono::Utc;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-use crate::utils::{serialize, hash_to_str};
+use crate::utils::{hash_to_str, serialize};
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct BlockHeader {
@@ -14,21 +14,21 @@ pub struct BlockHeader {
 pub struct Block {
     header: BlockHeader,
     data: String,
-    hash: String,
+    header_hash: String,
 }
 
 impl Block {
     pub fn new(data: &str, prev_hash: &str) -> Self {
         let mut block = Block {
-            header: BlockHeader { 
-                timestamp: Utc::now().timestamp(), 
-                prev_hash: prev_hash.into(), 
-                nonce: 0, 
+            header: BlockHeader {
+                timestamp: Utc::now().timestamp(),
+                prev_hash: prev_hash.into(),
+                nonce: 0,
             },
             data: data.into(),
-            hash: String::new(),
+            header_hash: String::new(),
         };
-        block.set_hash();
+        block.calc_header_hash();
 
         block
     }
@@ -37,13 +37,13 @@ impl Block {
         Self::new("创世区块", "")
     }
 
-    pub fn get_hash(&self) -> String {
-        self.hash.clone()
+    pub fn get_header_hash(&self) -> String {
+        self.header_hash.clone()
     }
 
-    fn set_hash(&mut self) {
+    fn calc_header_hash(&mut self) {
         if let Ok(serialized) = serialize(&self.header) {
-            self.hash = hash_to_str(&serialized)
+            self.header_hash = hash_to_str(&serialized)
         }
     }
 }

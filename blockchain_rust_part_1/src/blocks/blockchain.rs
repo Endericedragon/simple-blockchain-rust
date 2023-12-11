@@ -17,7 +17,7 @@ impl Blockchain {
 
     pub fn mine_block(&mut self, data: &str) {
         let prev_block = self.blocks.last().unwrap();
-        let block = Block::new(data, prev_block.get_hash().as_str());
+        let block = Block::new(data, prev_block.get_header_hash().as_str());
         self.blocks.push(block);
         self.height += 1;
     }

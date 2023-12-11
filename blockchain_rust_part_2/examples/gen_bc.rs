@@ -7,7 +7,7 @@ fn main() {
     let mut bc = Blockchain::new();
 
     bc.mine_block("Justin -> Bob 2 btc");
-    // bc.mine_block("Justin -> Bruce 2 btc");
+    bc.mine_block("Justin -> Bruce 2 btc");
 
     bc.blocks_info();
 }

@@ -4,7 +4,7 @@ use serde::{Serialize, Deserialize};
 
 use crate::error::BlockchainError;
 
-pub fn serialize<T>(data: &T) -> Result<Vec<u8>, BlockchainError> 
+pub fn serialize<T>(data: &T) -> Result<Vec<u8>, BlockchainError>
 where
     T: Serialize + ?Sized
 {
@@ -12,7 +12,7 @@ where
 }
 
 #[allow(dead_code)]
-pub fn deserialize<'a, T>(data: &'a [u8]) -> Result<T, BlockchainError> 
+pub fn deserialize<'a, T>(data: &'a [u8]) -> Result<T, BlockchainError>
 where
     T: Deserialize<'a> + ?Sized
 {
